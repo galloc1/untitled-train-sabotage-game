@@ -1,0 +1,36 @@
+*This is my ideal vision of the game. I will likely have to make compromises to get the game in a playable state withing the time frame. With that said, I will make an effort to implement as many good ideas from this list as possible.
+=================
+Gameplay
+=================
+Walking around the train (maybe between 2-3 carriages?) sabotaging the train without drawing heat from the passengers/train staff.
+Various tasks to sabotage (haha like among us am i rigSHUT THE FUCK UP)
+
+Your goal is to force the train to be stopped because (i dont fucking know, think of something dumbass. you really didnt consider this yet? fuck youre useless)
+
+=================
+Visual Elements
+=================
+
+
+
+=================
+Auditory Elements
+=================
+
+
+
+=================
+Control Scheme
+=================
+Best to have customisable controls
+
+
+=================
+Game Flow
+=================
+My main idea atm is that the player will load in on the train with a voiceover of some accomplice introducing them to their goal over radio. Then, the player will be guided by a graphic at the bottom showing, for example 'Hold WASD to move', 'Hold Shift to sprint' and the keys shown visually below, maybe afterwards saying 'dont run around passengers to avoid making them worried' as in running around them gathers heat, etc
+
+
+
+
+...more
