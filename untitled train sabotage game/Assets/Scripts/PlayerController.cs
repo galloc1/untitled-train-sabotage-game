@@ -6,15 +6,17 @@ using UnityEngine.Animations;
 
 public class PlayerController : MonoBehaviour
 {
-    public float pitch;
-    public float yaw;
-    public float xaxis;
-    public float yaxis;
-    public float mouseSensitivity;
+    public float horizontalSensitivity, verticalSensitivity;
+    public float speed;
+
+    float xRotation, yRotation;
+
+    //A Transform representing the 'head' of the player (user's viewpoint and associated objects)
+    public Transform head;
 
     //Rigidbody attached to the player
     Rigidbody rb;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,39 +28,42 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Rotate();
+        Cursor.visible = false;
     }
     private void Move()
     {
+        Vector3 movementDirection = new Vector3();
+
         if (Input.GetKey(KeyCode.W))
         {
-            rb.velocity = transform.forward * 3;
+            movementDirection += head.forward;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            rb.velocity = -transform.right * 3;
+            movementDirection -= head.right;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            rb.velocity = -transform.forward * 3;
+            movementDirection -= head.forward;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.velocity = transform.right * 3;
+            movementDirection += head.right;
         }
+        movementDirection.Normalize();
+        rb.velocity = movementDirection*speed;
     }
     public void Rotate()
     {
-        //stores initial pitch, yaw, and roll of the player
-        pitch = transform.eulerAngles.x;
-        yaw = transform.eulerAngles.y;
-        float roll = 0;
+        //adding mouse movement to pitch and yaw
+        xRotation -= Input.GetAxis("Mouse Y") * verticalSensitivity;
+        yRotation += Input.GetAxis("Mouse X") * horizontalSensitivity;
 
-        xaxis = Input.GetAxis("Mouse X");
-        yaxis = Input.GetAxis("Mouse Y");
-        //adds mouse movement to pitch and yaw
-        yaw +=Input.GetAxis("Mouse X")*mouseSensitivity;
-        pitch+=Input.GetAxis("Mouse Y")*mouseSensitivity;
+        xRotation = Mathf.Clamp(xRotation, -90, 80);
 
-        transform.rotation = Quaternion.Euler(pitch, yaw, roll);
+        //clamps rotation on the z axis to zero; consequently, the player can look only up/down and left/right
+        Quaternion q = head.rotation;
+        q.eulerAngles = new Vector3(xRotation, yRotation, 0);
+        head.rotation = q;
     }
 }
