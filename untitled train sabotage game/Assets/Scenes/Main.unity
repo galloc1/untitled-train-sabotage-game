@@ -226,9 +226,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 553834174583077583, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553834174583077583, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 1702798576428968614, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1769804247019045853, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2138876330}
+    - target: {fileID: 1930072155431765317, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: mouseSensitivity
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6190403373752019723, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
       propertyPath: m_RootOrder
@@ -277,6 +293,10 @@ PrefabInstance:
     - target: {fileID: 6864657527202685429, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
       propertyPath: m_TagString
       value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958631953531516622, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: mouseSensitivity
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
@@ -373,3 +393,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!4 &2138876330 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2574809437061420658, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+  m_PrefabInstance: {fileID: 1290717064}
+  m_PrefabAsset: {fileID: 0}
