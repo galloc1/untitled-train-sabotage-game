@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
-public class CameraController : MonoBehaviour
+public class ProjectileHandler : MonoBehaviour
 {
-    public Transform player;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -17,5 +14,9 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
     }
 }

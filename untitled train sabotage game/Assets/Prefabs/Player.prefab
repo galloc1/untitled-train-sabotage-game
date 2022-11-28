@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6190403373752019723}
   - component: {fileID: 1230857124211094625}
   - component: {fileID: 7958631953531516622}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +65,12 @@ MonoBehaviour:
   horizontalSensitivity: 7
   verticalSensitivity: 3
   speed: 6
+  inputBuffer: 0.2
+  shotCooldownLength: 0
+  projectileSpeed: 10
   head: {fileID: 5541539376747991033}
+  gun: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!1 &3429808316908733448
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +83,7 @@ GameObject:
   - component: {fileID: 9135190481743727171}
   - component: {fileID: 8162337205357129657}
   - component: {fileID: 8499237157126641798}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5541539376747991033}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,9 +208,8 @@ GameObject:
   m_Component:
   - component: {fileID: 553834174583077583}
   - component: {fileID: 2740969786596279106}
-  - component: {fileID: 1930072155431765317}
   - component: {fileID: 6745113359229408546}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6864657527202685429}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: -5}
+  m_LocalPosition: {x: 2, y: 0.6, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5541539376747991033}
@@ -269,19 +273,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1930072155431765317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6864657527202685429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7842b3f141f8c248b57fd404e701058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 6190403373752019723}
 --- !u!81 &6745113359229408546
 AudioListener:
   m_ObjectHideFlags: 0
@@ -302,7 +293,7 @@ GameObject:
   - component: {fileID: 1994597482342630121}
   - component: {fileID: 6580830124530089535}
   - component: {fileID: 4707625085472777819}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
