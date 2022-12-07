@@ -3,25 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using cakeslice;
 
 public class PlayerController : MonoBehaviour
 {
     public float horizontalSensitivity, verticalSensitivity;
     public float speed;
-    public float inputBuffer;
-    public float shotCooldownLength;
-    public float projectileSpeed;
 
     private float xRotation, yRotation;
-    private float cooldownTimer;
 
-    private bool shotQueued;
+    private GameObject currentPopup;
+
+    private Component comp;
 
     //A Transform representing the 'head' of the player (user's viewpoint and associated objects)
     public Transform head;
-    public Transform gun;
 
     public GameObject projectile;
+    public GameObject interactionPopup;
+    public GameObject cameraMinigame;
 
     //Rigidbody attached to the player
     Rigidbody rb;
@@ -37,27 +37,8 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Rotate();
-        FireWeapon();
         Cursor.visible = false;
     }
-    private void FireWeapon()
-    {
-        cooldownTimer += Time.deltaTime;
-        if (Input.GetMouseButton(0) || shotQueued)
-        {
-            if(cooldownTimer > shotCooldownLength)
-            {
-                shotQueued = false;
-                cooldownTimer = 0.0f;
-                GameObject projectileInstance = Instantiate(projectile, gun.position, head.rotation);
-                projectileInstance.GetComponent<Rigidbody>().velocity = projectileInstance.transform.forward.normalized * projectileSpeed;
-            }
-            else if(shotCooldownLength-cooldownTimer<inputBuffer)
-            {
-                shotQueued = true;
-            }
-        }
-    } 
     private void Move()
     {
         Vector3 movementDirection = new Vector3();
@@ -95,5 +76,31 @@ public class PlayerController : MonoBehaviour
         Quaternion q = head.rotation;
         q.eulerAngles = new Vector3(xRotation, yRotation, 0);
         head.rotation = q;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "CameraInteractionZone")
+        {
+            currentPopup = Instantiate(interactionPopup);
+            comp = other.gameObject.transform.parent.gameObject.AddComponent<Outline>();
+            other.gameObject.transform.parent.gameObject.GetComponent<Outline>().color = 1;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            if (other.gameObject.tag == "CameraInteractionZone")
+            {
+                Destroy(currentPopup);
+                currentPopup = Instantiate(cameraMinigame);
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Destroy(currentPopup);
+        currentPopup = Instantiate(interactionPopup);
+        Destroy(comp);
     }
 }
