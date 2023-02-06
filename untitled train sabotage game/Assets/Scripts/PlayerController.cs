@@ -7,21 +7,30 @@ using cakeslice;
 
 public class PlayerController : MonoBehaviour
 {
+    //Player control
     public float horizontalSensitivity, verticalSensitivity;
     public float speed;
 
     private float xRotation, yRotation;
 
-    private GameObject currentPopup;
+    //Game flow variables
+    private bool inAGame;
+    private bool readyForNewCarriage;
 
-    private Component comp;
+    //
+    private Component outline;
 
-    //A Transform representing the 'head' of the player (user's viewpoint and associated objects)
+    //Public references
     public Transform head;
 
-    public GameObject projectile;
-    public GameObject interactionPopup;
-    public GameObject cameraMinigame;
+    public GameObject carriage;
+    public GameObject popup;
+    public GameObject camera;
+
+    //World elements
+    private GameObject carriageInstance;
+    private GameObject popupInstance;
+    private GameObject cameraInstance;
 
     //Rigidbody attached to the player
     Rigidbody rb;
@@ -30,15 +39,36 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        inAGame = false;
+        readyForNewCarriage = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Rotate();
-        Cursor.visible = false;
+        if (readyForNewCarriage)
+        {
+            GenerateCarriage();
+        }
+        if (!inAGame)
+        {
+            Move();
+            Rotate();
+            Cursor.visible = false;
+        }
     }
+
+    //Instantiates a subway carriage with different minigames
+    private void GenerateCarriage()
+    {
+        carriageInstance = Instantiate(carriage);
+        if(Random.Range(0, 1) == 0)
+        {
+            cameraInstance = Instantiate(camera);
+        }
+        readyForNewCarriage = false;
+    }
+    //Player main movement
     private void Move()
     {
         Vector3 movementDirection = new Vector3();
@@ -63,6 +93,7 @@ public class PlayerController : MonoBehaviour
         movementDirection.y = 0;
         rb.velocity = movementDirection*speed;
     }
+    //Player main rotation
     private void Rotate()
     {
         //adding mouse movement to pitch and yaw
@@ -77,12 +108,13 @@ public class PlayerController : MonoBehaviour
         q.eulerAngles = new Vector3(xRotation, yRotation, 0);
         head.rotation = q;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "CameraInteractionZone")
         {
-            currentPopup = Instantiate(interactionPopup);
-            comp = other.gameObject.transform.parent.gameObject.AddComponent<Outline>();
+            popupInstance = Instantiate(popup);
+            outline = other.gameObject.transform.parent.gameObject.AddComponent<Outline>();
             other.gameObject.transform.parent.gameObject.GetComponent<Outline>().color = 1;
         }
     }
@@ -92,15 +124,21 @@ public class PlayerController : MonoBehaviour
         {
             if (other.gameObject.tag == "CameraInteractionZone")
             {
-                Destroy(currentPopup);
-                currentPopup = Instantiate(cameraMinigame);
+                inAGame = true;
+                Cursor.visible = true;
+                Destroy(popupInstance);
+                rb.velocity = Vector3.zero;
+
+                Transform cameraButtons = cameraInstance.transform.GetChild(0);
+                cameraButtons.GetComponent<CameraMinigame>().sequencing = true;
+                transform.GetChild(1).GetChild(1).position = cameraButtons.position - (cameraButtons.transform.forward * 0.35f);
+                transform.GetChild(1).GetChild(1).LookAt(cameraButtons.position);
             }
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        Destroy(currentPopup);
-        currentPopup = Instantiate(interactionPopup);
-        Destroy(comp);
+        Destroy(popupInstance);
+        Destroy(outline);
     }
 }
