@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = Vector3.zero;
 
                 Transform cameraButtons = cameraInstance.transform.GetChild(0);
-                cameraButtons.GetComponent<CameraMinigame>().sequencing = true;
+                cameraButtons.GetComponent<ButtonsMinigame>().addingToSequence = true;
                 transform.GetChild(1).GetChild(1).position = cameraButtons.position - (cameraButtons.transform.forward * 0.35f);
                 transform.GetChild(1).GetChild(1).LookAt(cameraButtons.position);
             }
