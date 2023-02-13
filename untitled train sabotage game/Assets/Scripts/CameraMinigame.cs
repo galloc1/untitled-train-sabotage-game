@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CameraMinigame : MonoBehaviour
 {
+    /*
     private Transform[] buttons;
     private List<Transform> sequence;
     private Transform button;
@@ -105,5 +106,5 @@ public class CameraMinigame : MonoBehaviour
         {
             midSequence = false;
         }
-    }
+    }*/
 }

@@ -25,12 +25,12 @@ public class PlayerController : MonoBehaviour
 
     public GameObject carriage;
     public GameObject popup;
-    public GameObject camera;
+    public GameObject securityCamera;
 
     //World elements
     private GameObject carriageInstance;
     private GameObject popupInstance;
-    private GameObject cameraInstance;
+    private GameObject securityCameraInstance;
 
     //Rigidbody attached to the player
     Rigidbody rb;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         carriageInstance = Instantiate(carriage);
         if(Random.Range(0, 1) == 0)
         {
-            cameraInstance = Instantiate(camera);
+            securityCameraInstance = Instantiate(securityCamera);
         }
         readyForNewCarriage = false;
     }
@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(popupInstance);
                 rb.velocity = Vector3.zero;
 
-                Transform cameraButtons = cameraInstance.transform.GetChild(0);
+                Transform cameraButtons = securityCameraInstance.transform.GetChild(0);
                 cameraButtons.GetComponent<ButtonsMinigame>().addingToSequence = true;
                 transform.GetChild(1).GetChild(1).position = cameraButtons.position - (cameraButtons.transform.forward * 0.35f);
                 transform.GetChild(1).GetChild(1).LookAt(cameraButtons.position);
