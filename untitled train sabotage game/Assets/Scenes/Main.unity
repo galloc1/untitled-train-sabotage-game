@@ -140,6 +140,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 553834174583077583, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 553834174583077583, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
@@ -154,6 +158,10 @@ PrefabInstance:
     - target: {fileID: 1702798576428968614, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740969786596279106, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6190403373752019723, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
       propertyPath: m_RootOrder

@@ -12,12 +12,13 @@ public class PlayerController : MonoBehaviour
     public float speed;
 
     private float xRotation, yRotation;
+    private Quaternion rotationDefault;
 
     //Game flow variables
     private bool inAGame;
     private bool readyForNewCarriage;
 
-    //
+    //Outline
     private Component outline;
 
     //Public references
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rotationDefault = transform.Find("/Player/Head/Main Camera").localRotation;
         rb = GetComponent<Rigidbody>();
         inAGame = false;
         readyForNewCarriage = true;
@@ -122,6 +124,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E))
         {
+            //If starting the Camera minigame
             if (other.gameObject.tag == "CameraInteractionZone")
             {
                 inAGame = true;
@@ -129,10 +132,11 @@ public class PlayerController : MonoBehaviour
                 Destroy(popupInstance);
                 rb.velocity = Vector3.zero;
 
-                Transform cameraButtons = securityCameraInstance.transform.GetChild(0);
+                Transform cameraButtons = securityCameraInstance.transform.Find("/Security Camera(Clone)/Camera Buttons");
+                Debug.Log(cameraButtons);
                 cameraButtons.GetComponent<ButtonsMinigame>().addingToSequence = true;
-                transform.GetChild(1).GetChild(1).position = cameraButtons.position - (cameraButtons.transform.forward * 0.35f);
-                transform.GetChild(1).GetChild(1).LookAt(cameraButtons.position);
+                transform.Find("/Player/Head/Main Camera").position = cameraButtons.position - (cameraButtons.transform.forward * 0.12f);
+                transform.Find("/Player/Head/Main Camera").LookAt(cameraButtons.position);
             }
         }
     }
@@ -140,5 +144,13 @@ public class PlayerController : MonoBehaviour
     {
         Destroy(popupInstance);
         Destroy(outline);
+    }
+    public void ExitGame()
+    {
+        Debug.Log("donezo!");
+        inAGame = false;
+        Cursor.visible = false;
+        transform.Find("/Player/Head/Main Camera").localRotation = rotationDefault;
+        transform.Find("/Player/Head/Main Camera").localPosition = new Vector3(0.0f, 0.6f, 0.0f);
     }
 }
