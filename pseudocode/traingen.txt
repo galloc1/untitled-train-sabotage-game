@@ -1,21 +1,34 @@
-GET train car prefab AS trainCar
+DECLARE GameObject carriageInstanceA, carriageInstanceB
+DECLARE GameObject popupMessageInstance
+DECLARE EACH GameObject minigameInstance
+DECLARE bool waitingForPlayerToExitCarriage
+
+GET train car prefab AS carriage
 GET EACH minigame AS minigame
-GET EACH popup message AS popup message
+GET popup message AS popup message
 GET player
 STARTUP
-	INSTANTIATE trainCar
+	INSTANTIATE trainCar AS carA
+	DECLARE GameObject carB
 	FOR EACH MINIGAME
 		RANDOM true/false
 		IF true THEN
-			INSTANTIATE minigame
+			INSTANTIATE minigame AS minigameInstance
 
-
-IF all minigames are completed THEN
-	INSTANTIATE trainCar2
-	FOR EACH MINIGAME
-		RANDOM true/false
-		IF true THEN
-			INSTANTIATE minigame
-	PLAY ANIMATION open trainCar door
-	SAY move to new 
-	WAIT FOR player to enter new train car
+EACHFRAME
+	IF all minigames are completed THEN
+		DEC&SET movement TO -trainCarLength
+		SET carA.position TO carA.position+movement
+		SET player.position TO player.position+movement
+		SET carB TO carA
+		INSTANTIATE trainCar AS carA
+		FOR EACH MINIGAME
+			RANDOM true/false
+			IF true THEN
+				INSTANTIATE minigame
+		PLAY ANIMATION open trainCar door
+		SAY move to next car
+		waitingForPlayerToExitCarriage = true
+	IF waitingForPlayerToExitCarriage THEN
+		IF player.position IS past carA.entrance
+			carB.Destroy()

@@ -67,9 +67,10 @@ MonoBehaviour:
   verticalSensitivity: 3
   speed: 6
   head: {fileID: 5541539376747991033}
-  carriage: {fileID: 6595876585419003108, guid: 44953b0457496de49bba723e49e8888f, type: 3}
   popup: {fileID: 5665792781109602422, guid: c73ee3aa350d2544d97974ea77ba190c, type: 3}
-  securityCamera: {fileID: 5985774068126206129, guid: 85ea5880e85347848bd8682c4efe684f, type: 3}
+  carriage: {fileID: 6595876585419003108, guid: 44953b0457496de49bba723e49e8888f, type: 3}
+  carriageElements:
+  - {fileID: 5985774068126206129, guid: 85ea5880e85347848bd8682c4efe684f, type: 3}
 --- !u!1 &3429808316908733448
 GameObject:
   m_ObjectHideFlags: 0

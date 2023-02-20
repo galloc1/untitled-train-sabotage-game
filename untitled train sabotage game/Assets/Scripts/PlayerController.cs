@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     //Game flow variables
     private bool inAGame;
     private bool readyForNewCarriage;
+    private bool waitingForPlayerToExitCarriage;
 
     //Outline
     private Component outline;
@@ -24,18 +25,25 @@ public class PlayerController : MonoBehaviour
     //Public references
     public Transform head;
 
-    public GameObject carriage;
     public GameObject popup;
-    public GameObject securityCamera;
 
-    //World elements
-    private GameObject carriageInstance;
+
     private GameObject popupInstance;
-    private GameObject securityCameraInstance;
 
     //Rigidbody attached to the player
     Rigidbody rb;
-    
+
+    //Train carriage & minigame GameObjects
+    //  Public references
+    public GameObject carriage;
+    public List<GameObject> carriageElements = new List<GameObject>();
+
+    //  World elements
+    private List<GameObject> carriageElementsInstances = new List<GameObject>();
+    private List<GameObject> previousCarriageElements = new List<GameObject>();
+    private List<bool> completionStatus = new List<bool>();
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +60,10 @@ public class PlayerController : MonoBehaviour
         {
             GenerateCarriage();
         }
+        else
+        {
+            FinishCarriage();
+        }
         if (!inAGame)
         {
             Move();
@@ -63,13 +75,46 @@ public class PlayerController : MonoBehaviour
     //Instantiates a subway carriage with different minigames
     private void GenerateCarriage()
     {
-        carriageInstance = Instantiate(carriage);
-        if(Random.Range(0, 1) == 0)
-        {
-            securityCameraInstance = Instantiate(securityCamera);
-        }
+        completionStatus = new List<bool>();
+        carriageElementsInstances.Add(Instantiate(carriage));
+        AddMinigames();
         readyForNewCarriage = false;
     }
+
+    //For when the player finishes a carriage
+    private void FinishCarriage()
+    {
+        if (!completionStatus.Contains(true))
+        {
+            Debug.Log("rhut rho");
+            previousCarriageElements = carriageElementsInstances;
+            transform.position -= new Vector3(29.0f, 0);
+            for (int i = 0; i < previousCarriageElements.Count; i++)
+            {
+                previousCarriageElements[i].transform.position -= new Vector3(29.0f, 0.0f);
+            }
+            readyForNewCarriage = true;
+        }
+    }
+
+    //Adds each minigame to the carriage
+    private void AddMinigames()
+    {
+        for (int i = 0; i < carriageElements.Count; i++)
+        {
+            if (Random.Range(0, 1) == 0)
+            {
+                carriageElementsInstances.Add(Instantiate(carriageElements[i]));
+                completionStatus.Add(true);
+            }
+            else
+            {
+                carriageElementsInstances.Add(null);
+                completionStatus.Add(false);
+            }
+        }
+    }
+
     //Player main movement
     private void Move()
     {
@@ -132,7 +177,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(popupInstance);
                 rb.velocity = Vector3.zero;
 
-                Transform cameraButtons = securityCameraInstance.transform.Find("/Security Camera(Clone)/Camera Buttons");
+                Transform cameraButtons = carriageElementsInstances[1].transform.Find("/Security Camera(Clone)/Camera Buttons");
                 Debug.Log(cameraButtons);
                 cameraButtons.GetComponent<ButtonsMinigame>().addingToSequence = true;
                 transform.Find("/Player/Head/Main Camera").position = cameraButtons.position - (cameraButtons.transform.forward * 0.12f);
@@ -145,11 +190,12 @@ public class PlayerController : MonoBehaviour
         Destroy(popupInstance);
         Destroy(outline);
     }
-    public void ExitGame()
+    public void ExitGame(GameObject obj)
     {
-        Debug.Log("donezo!");
         inAGame = false;
         Cursor.visible = false;
+        Debug.Log(carriageElementsInstances.IndexOf(obj));
+        completionStatus[carriageElementsInstances.IndexOf(obj) - 1] = false;
         transform.Find("/Player/Head/Main Camera").localRotation = rotationDefault;
         transform.Find("/Player/Head/Main Camera").localPosition = new Vector3(0.0f, 0.6f, 0.0f);
     }

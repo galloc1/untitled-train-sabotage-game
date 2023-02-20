@@ -66,6 +66,7 @@ public class ButtonsMinigame : MonoBehaviour
         }
     }
 
+    //Adds a button to the sequence for the player to remember. Shows this to the player (animation)
     private void AddToSequence()
     {
         currentButton = allButtons[Random.Range(0, allButtons.Length)];
@@ -75,7 +76,15 @@ public class ButtonsMinigame : MonoBehaviour
         readyToAddToSequence = false;
     }
 
-    //For the player to press a button
+    //When the player is repeating the sequence. Get the object they clicked on.
+    /*
+     * If object clicked is the next button in the sequence
+     *      continue
+     * If object clicked is the wrong button
+     *      create a new sequence for the player to try again
+     * If object isnt a button
+     *      do nothing (not programmed in; implied)
+     */
     private void TryPressingButton()
     {
         RaycastHit hit;
@@ -84,11 +93,10 @@ public class ButtonsMinigame : MonoBehaviour
         {
             if (buttonPressSequence.ElementAt(currentPositionInButtonPressSequence) == hit.transform.parent)
             {
-                Debug.Log("hit!");
                 if (currentPositionInButtonPressSequence >= initialLengthOfSequence-1)
                 {
                     ResetGame();
-                    player.GetComponent<PlayerController>().ExitGame();
+                    player.GetComponent<PlayerController>().ExitGame(transform.parent.gameObject);
                 }
                 else
                 {
@@ -97,18 +105,19 @@ public class ButtonsMinigame : MonoBehaviour
             }
             else if (allButtons.Contains(hit.transform.parent))
             {
-                Debug.Log("miss!");
                 addingToSequence=true;
                 Start();
             }
         }
     }
 
+    //Replay the minigame as if it were just started
     private void ResetGame()
     {
         buttonPressSequence = new List<Transform>();
     }
 
+    //Called by ButtonEvent.cs
     public void ResetAnimation()
     {
         readyToAddToSequence = true;
