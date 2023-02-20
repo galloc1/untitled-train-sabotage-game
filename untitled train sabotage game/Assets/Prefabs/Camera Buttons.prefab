@@ -53,9 +53,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af898321516a55468c92cc2f567b7fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 1702798576428968614, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
   addingToSequence: 0
-  initialLengthOfSequence: 1
+  endGame: 0
+  initialLengthOfSequence: 5
 --- !u!1001 &103821161067707836
 PrefabInstance:
   m_ObjectHideFlags: 0

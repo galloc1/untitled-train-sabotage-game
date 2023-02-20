@@ -95,7 +95,7 @@ public class ButtonsMinigame : MonoBehaviour
                     currentPositionInButtonPressSequence++;
                 }
             }
-            else if (buttonPressSequence.Contains(hit.transform.parent))
+            else if (allButtons.Contains(hit.transform.parent))
             {
                 Debug.Log("miss!");
                 addingToSequence=true;

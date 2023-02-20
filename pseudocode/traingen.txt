@@ -1,0 +1,21 @@
+GET train car prefab AS trainCar
+GET EACH minigame AS minigame
+GET EACH popup message AS popup message
+GET player
+STARTUP
+	INSTANTIATE trainCar
+	FOR EACH MINIGAME
+		RANDOM true/false
+		IF true THEN
+			INSTANTIATE minigame
+
+
+IF all minigames are completed THEN
+	INSTANTIATE trainCar2
+	FOR EACH MINIGAME
+		RANDOM true/false
+		IF true THEN
+			INSTANTIATE minigame
+	PLAY ANIMATION open trainCar door
+	SAY move to new 
+	WAIT FOR player to enter new train car
