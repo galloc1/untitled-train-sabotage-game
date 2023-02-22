@@ -1,3 +1,4 @@
+using cakeslice;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,12 @@ public class ButtonsMinigame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (addingToSequence && Input.GetKey(KeyCode.Escape))
+        {
+            ResetGame();
+            transform.parent.GetChild(1).GetChild(1).GetComponent<Outline>().enabled = true;
+            player.GetComponent<PlayerController>().ExitGame(transform.parent.gameObject, true);
+        }
         //Runs while the game is generating and showing the player the sequence
         if (addingToSequence)
         {
@@ -60,7 +67,7 @@ public class ButtonsMinigame : MonoBehaviour
             }
             currentPositionInButtonPressSequence = 0;
         }
-        else if (playerIsActing && Input.GetMouseButtonDown(0))
+        else if (readyToAddToSequence && playerIsActing && Input.GetMouseButtonDown(0))
         {
             TryPressingButton();
         }
@@ -95,8 +102,9 @@ public class ButtonsMinigame : MonoBehaviour
             {
                 if (currentPositionInButtonPressSequence >= initialLengthOfSequence-1)
                 {
-                    ResetGame();
-                    player.GetComponent<PlayerController>().ExitGame(transform.parent.gameObject);
+                    GetComponent<ButtonsMinigame>().enabled = false;
+                    transform.parent.GetChild(1).GetChild(0).gameObject.SetActive(false);
+                    player.GetComponent<PlayerController>().ExitGame(transform.parent.gameObject, false);
                 }
                 else
                 {
@@ -115,6 +123,7 @@ public class ButtonsMinigame : MonoBehaviour
     private void ResetGame()
     {
         buttonPressSequence = new List<Transform>();
+        addingToSequence = false;
     }
 
     //Called by ButtonEvent.cs

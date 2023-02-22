@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 using cakeslice;
+using System.Runtime.ExceptionServices;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,9 +40,9 @@ public class PlayerController : MonoBehaviour
     public List<GameObject> carriageElements = new List<GameObject>();
 
     //  World elements
-    private List<GameObject> carriageElementsInstances = new List<GameObject>();
-    private List<GameObject> previousCarriageElements = new List<GameObject>();
-    private List<bool> completionStatus = new List<bool>();
+    public List<GameObject> carriageElementsInstances = new List<GameObject>();
+    public List<GameObject> previousCarriageElements = new List<GameObject>();
+    public List<bool> completionStatus = new List<bool>();
 
 
     // Start is called before the first frame update
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour
     private void GenerateCarriage()
     {
         completionStatus = new List<bool>();
+        carriageElementsInstances = new List<GameObject>();
         carriageElementsInstances.Add(Instantiate(carriage));
         AddMinigames();
         readyForNewCarriage = false;
@@ -86,11 +88,16 @@ public class PlayerController : MonoBehaviour
     {
         if (!completionStatus.Contains(true))
         {
-            Debug.Log("rhut rho");
-            previousCarriageElements = carriageElementsInstances;
+            for (int i= 0; i < previousCarriageElements.Count; i++)
+            {
+                Destroy(previousCarriageElements[i]);
+            }
+            previousCarriageElements = new List<GameObject>(carriageElementsInstances);
             transform.position -= new Vector3(29.0f, 0);
+            previousCarriageElements[0].transform.Find("/Subway Carriage(Clone)/Door").GetComponent<Animator>().SetTrigger("OpenDoor");
             for (int i = 0; i < previousCarriageElements.Count; i++)
             {
+                previousCarriageElements[i].name = i.ToString();
                 previousCarriageElements[i].transform.position -= new Vector3(29.0f, 0.0f);
             }
             readyForNewCarriage = true;
@@ -158,11 +165,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "DoorTrigger")
+        {
+            carriageElementsInstances[0].transform.Find("/Subway Carriage(Clone)/Door (1)").GetComponent<Animator>().SetTrigger("CloseDoor");
+        }
         if (other.gameObject.tag == "CameraInteractionZone")
         {
             popupInstance = Instantiate(popup);
-            outline = other.gameObject.transform.parent.gameObject.AddComponent<Outline>();
-            other.gameObject.transform.parent.gameObject.GetComponent<Outline>().color = 1;
         }
     }
     private void OnTriggerStay(Collider other)
@@ -177,8 +186,8 @@ public class PlayerController : MonoBehaviour
                 Destroy(popupInstance);
                 rb.velocity = Vector3.zero;
 
+                other.transform.parent.GetChild(1).GetComponent<Outline>().enabled = false;
                 Transform cameraButtons = carriageElementsInstances[1].transform.Find("/Security Camera(Clone)/Camera Buttons");
-                Debug.Log(cameraButtons);
                 cameraButtons.GetComponent<ButtonsMinigame>().addingToSequence = true;
                 transform.Find("/Player/Head/Main Camera").position = cameraButtons.position - (cameraButtons.transform.forward * 0.12f);
                 transform.Find("/Player/Head/Main Camera").LookAt(cameraButtons.position);
@@ -190,12 +199,15 @@ public class PlayerController : MonoBehaviour
         Destroy(popupInstance);
         Destroy(outline);
     }
-    public void ExitGame(GameObject obj)
+    public void ExitGame(GameObject obj, bool gameCompleted)
     {
         inAGame = false;
         Cursor.visible = false;
-        Debug.Log(carriageElementsInstances.IndexOf(obj));
-        completionStatus[carriageElementsInstances.IndexOf(obj) - 1] = false;
+        completionStatus[carriageElementsInstances.IndexOf(obj) - 1] = gameCompleted;
+        if (gameCompleted)
+        {
+            popupInstance = Instantiate(popup);
+        }
         transform.Find("/Player/Head/Main Camera").localRotation = rotationDefault;
         transform.Find("/Player/Head/Main Camera").localPosition = new Vector3(0.0f, 0.6f, 0.0f);
     }

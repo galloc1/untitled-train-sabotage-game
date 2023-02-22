@@ -263,6 +263,14 @@ PrefabInstance:
       propertyPath: carriageElements.Array.data[3]
       value: 
       objectReference: {fileID: 5985774068126206129, guid: 85ea5880e85347848bd8682c4efe684f, type: 3}
+    - target: {fileID: 8252450711597379214, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: lineIntensity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252450711597379214, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
+      propertyPath: lineThickness
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
 --- !u!1 &919384437
