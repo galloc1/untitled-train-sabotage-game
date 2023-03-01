@@ -46,7 +46,7 @@ public class ButtonsMinigame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (addingToSequence && Input.GetKey(KeyCode.Escape))
+        if (addingToSequence && Input.GetKey(KeyCode.Escape) || playerIsActing && Input.GetKey(KeyCode.Escape))
         {
             ResetGame();
             transform.parent.GetChild(1).GetChild(1).GetComponent<Outline>().enabled = true;

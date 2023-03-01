@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using cakeslice;
 using System.Runtime.ExceptionServices;
+using UnityEditor;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class PlayerController : MonoBehaviour
     //Game flow variables
     private bool inAGame;
     private bool readyForNewCarriage;
-    private bool waitingForPlayerToExitCarriage;
+
+    private bool doorIsOpen;
 
     //Outline
     private Component outline;
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         inAGame = false;
         readyForNewCarriage = true;
+        doorIsOpen = true;
     }
 
     // Update is called once per frame
@@ -81,6 +84,7 @@ public class PlayerController : MonoBehaviour
         carriageElementsInstances.Add(Instantiate(carriage));
         AddMinigames();
         readyForNewCarriage = false;
+        doorIsOpen=true;
     }
 
     //For when the player finishes a carriage
@@ -165,9 +169,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "DoorTrigger")
+        if (other.gameObject.tag == "DoorTrigger" && doorIsOpen)
         {
+            doorIsOpen = false;
             carriageElementsInstances[0].transform.Find("/Subway Carriage(Clone)/Door (1)").GetComponent<Animator>().SetTrigger("CloseDoor");
+            carriageElementsInstances[0].transform.Find("/Subway Carriage(Clone)/Door Trigger").GetComponent<BoxCollider>().enabled = false;
         }
         if (other.gameObject.tag == "CameraInteractionZone")
         {

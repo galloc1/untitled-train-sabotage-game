@@ -71,6 +71,10 @@ MonoBehaviour:
   carriage: {fileID: 6595876585419003108, guid: 44953b0457496de49bba723e49e8888f, type: 3}
   carriageElements:
   - {fileID: 5985774068126206129, guid: 85ea5880e85347848bd8682c4efe684f, type: 3}
+  - {fileID: 4084057684478113450, guid: df4e6e0a056c1e848b0c6b50a9820054, type: 3}
+  carriageElementsInstances: []
+  previousCarriageElements: []
+  completionStatus: 
 --- !u!1 &3429808316908733448
 GameObject:
   m_ObjectHideFlags: 0

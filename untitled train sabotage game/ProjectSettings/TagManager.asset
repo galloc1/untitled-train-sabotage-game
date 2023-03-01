@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CameraInteractionZone
   - DoorTrigger
+  - ElectricBoxInteractionZone
   layers:
   - Default
   - TransparentFX
