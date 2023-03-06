@@ -6,6 +6,7 @@ using UnityEngine.Animations;
 using cakeslice;
 using System.Runtime.ExceptionServices;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
 
     private GameObject popupInstance;
+    private GameObject canvasElement;
 
     //Rigidbody attached to the player
     Rigidbody rb;
@@ -175,7 +177,7 @@ public class PlayerController : MonoBehaviour
             carriageElementsInstances[0].transform.Find("/Subway Carriage(Clone)/Door (1)").GetComponent<Animator>().SetTrigger("CloseDoor");
             carriageElementsInstances[0].transform.Find("/Subway Carriage(Clone)/Door Trigger").GetComponent<BoxCollider>().enabled = false;
         }
-        if (other.gameObject.tag == "CameraInteractionZone")
+        if (other.gameObject.tag == "CameraInteractionZone" || other.gameObject.tag == "ElectricBoxInteractionZone")
         {
             popupInstance = Instantiate(popup);
         }
@@ -197,6 +199,17 @@ public class PlayerController : MonoBehaviour
                 cameraButtons.GetComponent<ButtonsMinigame>().addingToSequence = true;
                 transform.Find("/Player/Head/Main Camera").position = cameraButtons.position - (cameraButtons.transform.forward * 0.12f);
                 transform.Find("/Player/Head/Main Camera").LookAt(cameraButtons.position);
+            }
+            if (other.gameObject.tag == "ElectricBoxInteractionZone")
+            {
+                inAGame = true;
+                Destroy(popupInstance);
+
+                other.transform.Find("/Electric Box(Clone)/Canvas/Train 2D").gameObject.SetActive(true);
+                other.transform.parent.GetChild(1).GetComponent<Outline>().enabled = false;
+                Transform powerBox = other.transform.parent.parent;
+                transform.Find("/Player/Head/Main Camera").position = powerBox.position - (powerBox.transform.forward * 2.0f);
+                transform.Find("/Player/Head/Main Camera").LookAt(powerBox.position);
             }
         }
     }
