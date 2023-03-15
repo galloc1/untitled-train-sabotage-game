@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "DoorTrigger" && doorIsOpen)
+        if (other.gameObject.tag == "DoorTrigger" && doorIsOpen && other.transform.parent.name == "Subway Carriage(Clone)")
         {
             doorIsOpen = false;
             carriageElementsInstances[0].transform.Find("/Subway Carriage(Clone)/Door (1)").GetComponent<Animator>().SetTrigger("CloseDoor");
@@ -208,6 +208,7 @@ public class PlayerController : MonoBehaviour
                 other.transform.Find("/Electric Box(Clone)/Canvas/Train 2D").gameObject.SetActive(true);
                 other.transform.parent.GetChild(1).GetComponent<Outline>().enabled = false;
                 Transform powerBox = other.transform.parent.parent;
+                powerBox.GetChild(1).GetChild(0).GetComponent<RhythmMinigame>().Initialise();
                 transform.Find("/Player/Head/Main Camera").position = powerBox.position - (powerBox.transform.forward * 2.0f);
                 transform.Find("/Player/Head/Main Camera").LookAt(powerBox.position);
             }

@@ -15,4 +15,9 @@ public class BounceEvent : MonoBehaviour
     {
         
     }
+
+    public void DestroyArrow()
+    {
+        Destroy(transform.parent.gameObject);
+    }
 }

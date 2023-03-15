@@ -400,8 +400,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0705a8a0d341b044e98f49925c0623fe, type: 3}
+--- !u!114 &192499183045533961 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2332789087010231043, guid: 0705a8a0d341b044e98f49925c0623fe, type: 3}
+  m_PrefabInstance: {fileID: 2518743284279177738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3984441137699411948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af898321516a55468c92cc2f567b7fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &741808822167834061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2936118935542366151, guid: 0705a8a0d341b044e98f49925c0623fe, type: 3}
   m_PrefabInstance: {fileID: 2518743284279177738}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3984441137699411948 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1567195180624946662, guid: 0705a8a0d341b044e98f49925c0623fe, type: 3}
+  m_PrefabInstance: {fileID: 2518743284279177738}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7957815934602915331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3984441137699411948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873a0bdfe70d9e046b252cc48d840bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonMinigame: {fileID: 192499183045533961}
