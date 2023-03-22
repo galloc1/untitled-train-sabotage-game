@@ -44,8 +44,6 @@ GameObject:
   - component: {fileID: 6380766769424146808}
   - component: {fileID: 7241111013261945698}
   - component: {fileID: 8206521631588464123}
-  - component: {fileID: 2103918432485961409}
-  - component: {fileID: 4697520258707915787}
   m_Layer: 5
   m_Name: Arrow1
   m_TagString: Untagged
@@ -127,35 +125,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 25
---- !u!95 &2103918432485961409
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8348074215994920148}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 709b94e16938a9a44a4f0711e57db66c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4697520258707915787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8348074215994920148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60c9125632a6814e82737dd7980ff76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
