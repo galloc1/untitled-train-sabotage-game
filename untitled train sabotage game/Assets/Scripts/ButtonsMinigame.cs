@@ -89,8 +89,6 @@ public class ButtonsMinigame : MonoBehaviour
      *      continue
      * If object clicked is the wrong button
      *      create a new sequence for the player to try again
-     * If object isnt a button
-     *      do nothing (not programmed in; implied)
      */
     private void TryPressingButton()
     {
