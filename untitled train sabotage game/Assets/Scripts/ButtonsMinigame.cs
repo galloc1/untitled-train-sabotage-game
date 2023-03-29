@@ -2,8 +2,6 @@ using cakeslice;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.SearchService;
-using UnityEditor.UI;
 using UnityEngine;
 
 public class ButtonsMinigame : MonoBehaviour

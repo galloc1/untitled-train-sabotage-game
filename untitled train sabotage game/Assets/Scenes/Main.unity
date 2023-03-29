@@ -254,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7958631953531516622, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
       propertyPath: carriageElements.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7958631953531516622, guid: 0755f1b59767fec44a4e4c0adf7c0c22, type: 3}
       propertyPath: carriageElements.Array.data[1]

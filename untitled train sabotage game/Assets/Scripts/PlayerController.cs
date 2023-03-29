@@ -200,18 +200,6 @@ public class PlayerController : MonoBehaviour
                 transform.Find("/Player/Head/Main Camera").position = cameraButtons.position - (cameraButtons.transform.forward * 0.12f);
                 transform.Find("/Player/Head/Main Camera").LookAt(cameraButtons.position);
             }
-            if (other.gameObject.tag == "ElectricBoxInteractionZone")
-            {
-                inAGame = true;
-                Destroy(popupInstance);
-
-                other.transform.Find("/Electric Box(Clone)/Canvas/Train 2D").gameObject.SetActive(true);
-                other.transform.parent.GetChild(1).GetComponent<Outline>().enabled = false;
-                Transform powerBox = other.transform.parent.parent;
-                powerBox.GetChild(1).GetChild(0).GetComponent<RhythmMinigame>().Initialise();
-                transform.Find("/Player/Head/Main Camera").position = powerBox.position - (powerBox.transform.forward * 2.0f);
-                transform.Find("/Player/Head/Main Camera").LookAt(powerBox.position);
-            }
         }
     }
     private void OnTriggerExit(Collider other)
